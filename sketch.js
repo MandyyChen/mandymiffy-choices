@@ -3,8 +3,12 @@ let resultText = '';
 let choices = ['Deploy AI', 'Ignore AI', 'Train AI'];
 let bgMusic;
 
+function preload() {
+  bgMusic = loadSound("music.mp3");
+}
+
 function setup() { 
-    createCanvas(600, 400);
+    createCanvas(windowWidth, windowHeight);
     textAlign(CENTER, CENTER);
     textFont("monospace");
 
@@ -14,19 +18,26 @@ function setup() {
   });
 }
 
-function preload() {
-  bgMusic = loadSound("music.mp3");
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
 }
 
 function draw() {
     background(15);
+    cursor(ARROW);
     fill(255);
     textSize(28);
     text("Your AI Companion", width / 2, 60);
 
     if (state === 'start') {
+        drawAsciiRobot(width/2 - 30, height * 0.1);
+
         textSize(20);
-        text("You have created an AI companion. What will you do?", width / 2, height / 2 - 40);
+        text(
+    "Hey. You’ve been assigned to train and deploy Claude 4.6.7.\n" +
+    "It’s built to replicate human emotion. We really need this breakthrough.\n" +
+    "You got it, right?",
+            width / 2, height / 2 - 70);
 
         // function to create buttons
         for (let i = 0; i < choices.length; i++) {
@@ -84,4 +95,27 @@ function showRandomResult(choice) {
   // pick one random outcome
   resultText = "You chose: " + choice + "\n\n" + random(outcomes);
   state = "result";
+}
+
+function drawAsciiRobot(cx, topY) {
+  const s = constrain(round(min(width, height) / 20), 10, 18);
+  textAlign(CENTER, TOP);
+  textSize(s);
+  fill(200);
+
+  const robotArt = [`
+           .-""""-.
+         .'  _  _  '.
+        /   (o)(o)   \
+       :      __      :
+       |    .\`  \`.    |
+       :    \ -- /    :
+        \    \`––\`    /
+         \`.        .'`,
+  ];
+
+  const block = robotArt.join('\n');
+  text(block, cx, topY);
+
+  textAlign(CENTER, CENTER);
 }
