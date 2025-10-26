@@ -1,11 +1,21 @@
 let state = 'start';
 let resultText = '';
 let choices = ['Deploy AI', 'Ignore AI', 'Train AI'];
+let bgMusic;
 
 function setup() { 
     createCanvas(600, 400);
     textAlign(CENTER, CENTER);
     textFont("monospace");
+
+    userStartAudio().then(() => {
+    bgMusic.loop();
+    bgMusic.setVolume(0.2);
+  });
+}
+
+function preload() {
+  bgMusic = loadSound("music.mp3");
 }
 
 function draw() {
