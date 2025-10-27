@@ -27,8 +27,8 @@ function draw() {
     cursor(ARROW);
     fill(255);
     textSize(28);
-    text("Your AI Companion", width / 2, 60);
-
+    text("*Your AI Companion*", width / 2, 60);
+    
     if (state === 'start') {
         drawAsciiRobot(width/2 - 30, height * 0.1);
 
@@ -37,11 +37,11 @@ function draw() {
     "Hey. You’ve been assigned to train and deploy Claude 4.6.7.\n" +
     "It’s built to replicate human emotion. We really need this breakthrough.\n" +
     "You got it, right?",
-            width / 2, height / 2 - 70);
+            width / 2, height / 2);
 
         // function to create buttons
         for (let i = 0; i < choices.length; i++) {
-            drawButton(choices[i], width / 2, height / 2 + i * 50);
+            drawButton(choices[i], width / 2, (height / 2 + 100) + i * 50);
         }
     }
 
@@ -68,7 +68,7 @@ function mousePressed() {
     if (state === 'start') {
         for (let i = 0; i < choices.length; i++) {
             let x = width / 2;
-            let y = height / 2 + i * 50;
+            let y = (height / 2 + 100) + i * 50;
             if  (mouseX > x - 100 && mouseX < x + 100 && mouseY > y - 20 && mouseY < y + 20) {
                 state = 'result';
                 showRandomResult(choices[i]);
@@ -103,17 +103,19 @@ function drawAsciiRobot(cx, topY) {
   textSize(s);
   fill(200);
 
-  const robotArt = [`
-           .-""""-.
-         .'  _  _  '.
-        /   (o)(o)   \
-       :      __      :
-       |    .\`  \`.    |
-       :    \ -- /    :
-        \    \`––\`    /
-         \`.        .'`,
-  ];
+    const robotArt = [`
+        ,     ,
+        (\\____/)
+        (_oo_)
+        (O)
+            __||__    \\)
+         []/______\\ []/
+          / \\____/ \\/
+         /    /__\\
+        (\\__/_____\\)
+    `];
 
+  const lineHeight = 24;
   const block = robotArt.join('\n');
   text(block, cx, topY);
 
